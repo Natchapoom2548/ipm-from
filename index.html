@@ -247,6 +247,9 @@ hr.dv { border: none; border-top: 1px solid var(--gray-200); margin: 12px 0; }
   .toolbar, .row-acts, .np { display: none !important; }
   [contenteditable="true"] { background: transparent !important; box-shadow: none !important; }
   #form-page { box-shadow: none; border-radius: 0; max-width: 100%; padding: 16px 20px; }
+  table { page-break-inside: avoid; }
+  .qsec { page-break-inside: avoid; }
+  .sumbar { page-break-inside: avoid; }
 }
 </style>
 </head>
@@ -276,14 +279,13 @@ hr.dv { border: none; border-top: 1px solid var(--gray-200); margin: 12px 0; }
   <div class="header">
     <div class="header-text">
       <div class="h-title" contenteditable="true" spellcheck="false">Inspection and Preventive Maintenance System of <em>Infant Incubator</em></div>
-      <div class="h-dept" contenteditable="true" spellcheck="false">Biomedical Engineering Department, Rajavithi Hospital</div>
-      <div class="h-hosp" contenteditable="true" spellcheck="false">RAJAVITHI  HOSPITAL</div>
+      <div class="h-dept" contenteditable="true" spellcheck="false">Biomedical Engineering </div>
+      <div class="h-hosp" contenteditable="true" spellcheck="false"></div>
     </div>
   </div>
 
   <!-- PROC + STATUS -->
   <div class="proc-row">
-    <div class="proc-no" contenteditable="true" spellcheck="false">Procedure No.IPM-INFINC-001(Period 6month.)</div>
     <div class="status-box">
       <div class="status-title" contenteditable="true" spellcheck="false">STATUS</div>
       <label class="status-opt"><input type="radio" name="status" value="PASSED">
