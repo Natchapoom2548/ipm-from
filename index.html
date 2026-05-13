@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IPM Infant Incubator Form - Rajavithi Hospital</title>
+<title>IPM Infant Incubator Form</title>
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
@@ -93,13 +93,6 @@ body {
   margin-bottom: 12px; border-bottom: 3px solid var(--blue);
   padding-bottom: 14px;
 }
-.logo-circle {
-  flex-shrink: 0; width: 80px; height: 80px;
-  border-radius: 50%; border: 3px solid var(--blue);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 9px; color: var(--blue); text-align: center;
-  font-weight: 700; line-height: 1.4;
-}
 .header-text { flex: 1; text-align: center; }
 .h-title {
   font-size: 19px; font-weight: 700; color: var(--blue-dark);
@@ -110,10 +103,9 @@ body {
 
 /* ── PROC + STATUS ── */
 .proc-row {
-  display: flex; justify-content: space-between; align-items: flex-start;
+  display: flex; justify-content: flex-end; align-items: flex-start;
   gap: 16px; margin-bottom: 16px;
 }
-.proc-no { font-size: 13px; color: var(--gray-700); font-weight: 500; padding-top: 6px; }
 .status-box {
   border: 2px solid var(--blue-dark); border-radius: 6px;
   padding: 8px 16px; min-width: 210px;
@@ -150,7 +142,7 @@ body {
   background: transparent; padding: 2px 4px; color: var(--gray-900); transition: border-color .2s;
 }
 .finput:focus { border-bottom-color: var(--blue-mid); }
-.finput-sm { width: 65px; }
+.finput-sm { width: 65px; flex: none; }
 
 /* ── IPM TYPE ── */
 .ipm-types {
@@ -184,24 +176,14 @@ tr:nth-child(even) td { background: var(--gray-50); }
 .clbl { display: flex; align-items: center; gap: 2px; font-size: 11px; cursor: pointer; white-space: nowrap; }
 .clbl input { width: 13px; height: 13px; accent-color: var(--blue); cursor: pointer; }
 
-/* ── QUANT ── */
-.qsec { margin: 12px 0; }
-.qsec h3 { font-size: 13px; font-weight: 700; color: var(--gray-700); margin-bottom: 5px; }
-.qrow {
-  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr 2fr;
-  gap: 4px; align-items: center;
-  border-bottom: 1px solid var(--gray-200); padding: 4px 0; font-size: 12px;
-}
-.qhdr {
-  font-weight: 700; background: var(--blue-light);
-  padding: 5px 6px; border-radius: 4px; color: var(--blue-dark); font-size: 11.5px; margin-bottom: 2px;
-}
-.qinput {
-  border: 1px solid var(--gray-200); border-radius: 4px; outline: none;
+/* ── QUANT TABLE ── */
+.quant-select {
+  width: 100%; border: none; outline: none;
   font-family: 'Sarabun', sans-serif; font-size: 12px;
-  padding: 3px 5px; text-align: center; background: var(--gray-50); transition: all .2s; width: 100%;
+  background: transparent; padding: 2px 3px; color: var(--gray-900);
+  cursor: pointer;
 }
-.qinput:focus { border-color: var(--blue); background: var(--white); }
+.quant-select:focus { background: var(--blue-light); border-radius: 3px; }
 
 /* row add/remove */
 .row-acts { display: flex; gap: 4px; justify-content: flex-end; margin: 4px 0; }
@@ -243,16 +225,133 @@ hr.dv { border: none; border-top: 1px solid var(--gray-200); margin: 12px 0; }
 .np { }
 
 @media print {
-  body { background: white; padding: 0; }
-  .toolbar, .row-acts, .np { display: none !important; }
-  [contenteditable="true"] { background: transparent !important; box-shadow: none !important; }
-  #form-page { box-shadow: none; border-radius: 0; max-width: 100%; padding: 16px 20px; }
-  table { page-break-inside: avoid; }
-  .qsec { page-break-inside: avoid; }
-  .sumbar { page-break-inside: avoid; }
-  .sec-title { page-break-after: avoid; }
-thead { display: table-header-group; }
-tr { page-break-inside: avoid; }
+
+  @page {
+    size: A4 portrait;
+    margin: 8mm;
+  }
+
+  html,
+  body {
+    width: 210mm;
+    min-height: 297mm;
+
+    margin: 0;
+    padding: 0;
+
+    background: #fff !important;
+    overflow: visible !important;
+
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ซ่อนปุ่ม */
+  .toolbar,
+  .row-acts,
+  .np {
+    display: none !important;
+  }
+
+  /* หน้าเอกสาร */
+  #form-page {
+    width: 100%;
+    max-width: 100%;
+
+    margin: 0;
+    padding: 10px 14px;
+
+    box-shadow: none !important;
+    border-radius: 0 !important;
+
+    overflow: visible !important;
+  }
+
+  /* contenteditable */
+  [contenteditable="true"] {
+    background: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+
+  /* table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    page-break-inside: auto;
+    break-inside: auto;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tfoot {
+    display: table-footer-group;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  td,
+  th {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* section */
+  .sumbar,
+  .sigbox {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* title */
+  .sec-title {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  /* บังคับขึ้นหน้าใหม่ */
+  .page-break {
+    display: block;
+
+    width: 100%;
+    height: 0;
+
+    page-break-before: always;
+    break-before: page;
+  }
+
+  /* กัน flex/layout เพี้ยน */
+  .header,
+  .proc-row,
+  .sigsec,
+  .fg,
+  .env-row {
+    break-inside: avoid;
+  }
+
+  /* textarea */
+  textarea {
+    overflow: hidden;
+    resize: none;
+  }
+
+  /* input */
+  input,
+  textarea,
+  select {
+    color: #000 !important;
+  }
+
+  /* hr */
+  hr.dv {
+    margin: 10px 0;
+  }
 }
 </style>
 </head>
@@ -282,12 +381,12 @@ tr { page-break-inside: avoid; }
   <div class="header">
     <div class="header-text">
       <div class="h-title" contenteditable="true" spellcheck="false">Inspection and Preventive Maintenance System of <em>Infant Incubator</em></div>
-      <div class="h-dept" contenteditable="true" spellcheck="false">Biomedical Engineering </div>
+      <div class="h-dept" contenteditable="true" spellcheck="false">Biomedical Engineering</div>
       <div class="h-hosp" contenteditable="true" spellcheck="false"></div>
     </div>
   </div>
 
-  <!-- PROC + STATUS -->
+  <!-- STATUS -->
   <div class="proc-row">
     <div class="status-box">
       <div class="status-title" contenteditable="true" spellcheck="false">STATUS</div>
@@ -394,8 +493,11 @@ tr { page-break-inside: avoid; }
 
   <hr class="dv">
 
-  <!-- QUALITATIVE -->
-  <span class="sec-title" contenteditable="true" spellcheck="false">IPM Result</span>
+  <!-- ═══════════════════════════════════════
+       SECTION 1 : QUALITATIVE TASKS (checklist)
+       id="qual-tbody-1"  |  summary id *-1
+  ════════════════════════════════════════ -->
+  <div class="page-break"></div> <span class="sec-title">IPM Result</span>
   <table>
     <thead>
       <tr>
@@ -415,95 +517,56 @@ tr { page-break-inside: avoid; }
         <th class="np" style="width:28px; background:var(--blue-dark);"></th>
       </tr>
     </thead>
-    <tbody id="qual-tbody"></tbody>
+    <tbody id="qual-tbody-1"></tbody>
   </table>
   <div class="row-acts">
-    <button class="rbtn radd" onclick="addQualRow()">+ เพิ่มรายการ (2 คอลัมน์)</button>
+    <button class="rbtn radd" onclick="addQualRow1()">+ เพิ่มรายการ (2 คอลัมน์)</button>
   </div>
 
   <div class="sumbar">
     <span style="font-weight:700; color:var(--blue-dark);" contenteditable="true" spellcheck="false">สรุปผล Qualitative :</span>
-    <span><span class="badge bp" id="cnt-pass">0</span> PASS</span>
-    <span><span class="badge bf" id="cnt-fail">0</span> FAIL</span>
-    <span><span class="badge bn" id="cnt-na">0</span> N/A</span>
+    <span><span class="badge bp" id="cnt-pass-1">0</span> PASS</span>
+    <span><span class="badge bf" id="cnt-fail-1">0</span> FAIL</span>
+    <span><span class="badge bn" id="cnt-na-1">0</span> N/A</span>
   </div>
 
   <hr class="dv">
 
-  <!-- QUANTITATIVE -->
-  <span class="sec-bar" contenteditable="true" spellcheck="false">QUANTITATIVE TASKS</span>
+  <!-- ═══════════════════════════════════════
+       SECTION 2 : QUANTITATIVE TASKS (measured values)
+       id="qual-tbody-2"  |  summary id *-2
+  ════════════════════════════════════════ -->
+  <div class="page-break"></div>
 
-  <!-- Temp Control -->
-  <div class="qsec">
-    <h3 contenteditable="true" spellcheck="false">1. Temperature Control</h3>
-    <div class="qrow qhdr">
-      <span contenteditable="true" spellcheck="false">Parameter</span>
-      <span contenteditable="true" spellcheck="false">Set Point</span>
-      <span contenteditable="true" spellcheck="false">Actual</span>
-      <span contenteditable="true" spellcheck="false">Min</span>
-      <span contenteditable="true" spellcheck="false">Max</span>
-      <span contenteditable="true" spellcheck="false">Comment</span>
-    </div>
-    <div id="temp-rows">
-      <div class="qrow">
-        <span contenteditable="true" spellcheck="false">Air Temperature (°C)</span>
-        <input class="qinput" type="number" step="0.1">
-        <input class="qinput" type="number" step="0.1">
-        <span contenteditable="true" spellcheck="false" style="text-align:center; font-size:11px; color:var(--gray-700);">±0.5°C</span>
-        <span contenteditable="true" spellcheck="false" style="text-align:center; font-size:11px; color:var(--gray-700);">±0.5°C</span>
-        <input class="qinput" type="text" style="text-align:left;">
-      </div>
-      <div class="qrow">
-        <span contenteditable="true" spellcheck="false">Skin Temperature (°C)</span>
-        <input class="qinput" type="number" step="0.1">
-        <input class="qinput" type="number" step="0.1">
-        <span contenteditable="true" spellcheck="false" style="text-align:center; font-size:11px; color:var(--gray-700);">±0.5°C</span>
-        <span contenteditable="true" spellcheck="false" style="text-align:center; font-size:11px; color:var(--gray-700);">±0.5°C</span>
-        <input class="qinput" type="text" style="text-align:left;">
-      </div>
-    </div>
-    <div class="row-acts">
-      <button class="rbtn radd" onclick="addTempRow()">+ เพิ่มแถว</button>
-    </div>
+<span class="sec-title" contenteditable="true" spellcheck="false">Performance / Quantitative Tasks</span>
+  <table>
+    <thead>
+      <tr>
+        <th colspan="9" contenteditable="true" spellcheck="false" style="font-size:14px; padding:9px;">QUANTITATIVE TASKS</th>
+      </tr>
+      <tr>
+        <th contenteditable="true" spellcheck="false" style="width:22%; text-align:left; padding-left:8px;">Control Setting</th>
+        <th contenteditable="true" spellcheck="false" style="width:16%">Criteria</th>
+        <th contenteditable="true" spellcheck="false" style="width:16%">Set / Indicated</th>
+        <th contenteditable="true" spellcheck="false" style="width:16%">Measured</th>
+        <th contenteditable="true" spellcheck="false" style="width:8%">PASS</th>
+        <th contenteditable="true" spellcheck="false" style="width:8%">FAIL</th>
+        <th contenteditable="true" spellcheck="false" style="width:8%">N/A</th>
+        <th contenteditable="true" spellcheck="false" style="width:14%">Comment</th>
+        <th class="np" style="width:28px; background:var(--blue-dark);"></th>
+      </tr>
+    </thead>
+    <tbody id="qual-tbody-2"></tbody>
+  </table>
+  <div class="row-acts">
+    <button class="rbtn radd" onclick="addQualRow2()">+ เพิ่มรายการ</button>
   </div>
 
-  <!-- Alarm -->
-  <div class="qsec">
-    <h3 contenteditable="true" spellcheck="false">2. Alarm Tests</h3>
-    <div class="qrow qhdr">
-      <span contenteditable="true" spellcheck="false">Alarm Type</span>
-      <span contenteditable="true" spellcheck="false">Set Point</span>
-      <span contenteditable="true" spellcheck="false">Actual</span>
-      <span contenteditable="true" spellcheck="false">Pass/Fail</span>
-      <span contenteditable="true" spellcheck="false">N/A</span>
-      <span contenteditable="true" spellcheck="false">Comment</span>
-    </div>
-    <div id="alarm-rows">
-      <div class="qrow"><span contenteditable="true" spellcheck="false">High Temperature Alarm</span><input class="qinput" type="number" step="0.1"><input class="qinput" type="number" step="0.1"><select class="qinput"><option>—</option><option>PASS</option><option>FAIL</option></select><input class="qinput" type="checkbox" style="width:18px;height:18px;"><input class="qinput" type="text" style="text-align:left;"></div>
-      <div class="qrow"><span contenteditable="true" spellcheck="false">Low Temperature Alarm</span><input class="qinput" type="number" step="0.1"><input class="qinput" type="number" step="0.1"><select class="qinput"><option>—</option><option>PASS</option><option>FAIL</option></select><input class="qinput" type="checkbox" style="width:18px;height:18px;"><input class="qinput" type="text" style="text-align:left;"></div>
-      <div class="qrow"><span contenteditable="true" spellcheck="false">Power Failure Alarm</span><input class="qinput" type="text"><input class="qinput" type="text"><select class="qinput"><option>—</option><option>PASS</option><option>FAIL</option></select><input class="qinput" type="checkbox" style="width:18px;height:18px;"><input class="qinput" type="text" style="text-align:left;"></div>
-      <div class="qrow"><span contenteditable="true" spellcheck="false">Sensor Failure Alarm</span><input class="qinput" type="text"><input class="qinput" type="text"><select class="qinput"><option>—</option><option>PASS</option><option>FAIL</option></select><input class="qinput" type="checkbox" style="width:18px;height:18px;"><input class="qinput" type="text" style="text-align:left;"></div>
-    </div>
-    <div class="row-acts"><button class="rbtn radd" onclick="addAlarmRow()">+ เพิ่มแถว</button></div>
-  </div>
-
-  <!-- Electrical -->
-  <div class="qsec">
-    <h3 contenteditable="true" spellcheck="false">3. Electrical Safety Tests (IEC 60601-1)</h3>
-    <div class="qrow qhdr">
-      <span contenteditable="true" spellcheck="false">Test</span>
-      <span contenteditable="true" spellcheck="false">Standard</span>
-      <span contenteditable="true" spellcheck="false">Measured</span>
-      <span contenteditable="true" spellcheck="false">Pass/Fail</span>
-      <span contenteditable="true" spellcheck="false">N/A</span>
-      <span contenteditable="true" spellcheck="false">Comment</span>
-    </div>
-    <div id="elec-rows">
-      <div class="qrow"><span contenteditable="true" spellcheck="false">Ground Resistance (Ω)</span><span contenteditable="true" spellcheck="false" style="text-align:center;font-size:11px;color:var(--gray-700);">&lt;0.1 Ω</span><input class="qinput" type="number" step="0.001"><select class="qinput"><option>—</option><option>PASS</option><option>FAIL</option></select><input class="qinput" type="checkbox" style="width:18px;height:18px;"><input class="qinput" type="text" style="text-align:left;"></div>
-      <div class="qrow"><span contenteditable="true" spellcheck="false">Chassis Leakage Current (µA)</span><span contenteditable="true" spellcheck="false" style="text-align:center;font-size:11px;color:var(--gray-700);">&lt;500 µA</span><input class="qinput" type="number" step="1"><select class="qinput"><option>—</option><option>PASS</option><option>FAIL</option></select><input class="qinput" type="checkbox" style="width:18px;height:18px;"><input class="qinput" type="text" style="text-align:left;"></div>
-      <div class="qrow"><span contenteditable="true" spellcheck="false">Patient Leakage Current (µA)</span><span contenteditable="true" spellcheck="false" style="text-align:center;font-size:11px;color:var(--gray-700);">&lt;100 µA</span><input class="qinput" type="number" step="1"><select class="qinput"><option>—</option><option>PASS</option><option>FAIL</option></select><input class="qinput" type="checkbox" style="width:18px;height:18px;"><input class="qinput" type="text" style="text-align:left;"></div>
-    </div>
-    <div class="row-acts"><button class="rbtn radd" onclick="addElecRow()">+ เพิ่มแถว</button></div>
+  <div class="sumbar">
+    <span style="font-weight:700; color:var(--blue-dark);" contenteditable="true" spellcheck="false">สรุปผล Quantitative :</span>
+    <span><span class="badge bp" id="cnt-pass-2">0</span> PASS</span>
+    <span><span class="badge bf" id="cnt-fail-2">0</span> FAIL</span>
+    <span><span class="badge bn" id="cnt-na-2">0</span> N/A</span>
   </div>
 
   <hr class="dv">
@@ -539,81 +602,151 @@ tr { page-break-inside: avoid; }
 </div><!-- /form-page -->
 
 <script>
-/* ──────────────────────────────────
-   QUALITATIVE TABLE
-────────────────────────────────── */
+/* ══════════════════════════════════════════
+   SECTION 1 — QUALITATIVE TASKS (checklist)
+   tbody: #qual-tbody-1 | summary: #cnt-*-1
+══════════════════════════════════════════ */
 const qualDefs = [
-  "Chassis/Housing","Mount/Fasteners","Casters/Wheels/Breaks",
-  "AC Plug","Line Cord","Strain Reliefs","Cables","Control/Switches",
-  "Motor/Fan","Fluid Levels","Filter/Screens","Cleaning/Appearance",
-  "Battery/Charger","Time / Date Setting","Indicators/Displays",
-  "Network/Wireless Interfaces","Recorder","Alarms/Interlocks",
-  "Audible Signals","Labeling","Accessories","Door Seal/Gaskets"
+  "Chassis / Housing","Mount / Fasteners","Casters / Wheels / Breaks",
+  "AC Plug","Line Cord","Strain Reliefs","Cables","Control / Switches",
+  "Motor / Fan","Fluid Levels","Filter / Screens","Cleaning / Appearance",
+  "Battery / Charger","Time / Date Setting","Indicators / Displays",
+  "Network / Wireless Interfaces","Recorder","Alarms / Interlocks",
+  "Audible Signals","Labeling","Accessories","Door Seal / Gaskets"
 ];
 
-let qIdx = 0;
+let qIdx1 = 0; // global radio-name counter for section 1
 
-function makeQCell(label, idx) {
+function makeQCell1(label, idx) {
   return `
     <td style="text-align:center;width:6%;padding:4px 2px;">
-      <label class="clbl"><input type="radio" name="q${idx}" value="PASS" onchange="updateSummary()"> P</label>
+      <label class="clbl"><input type="radio" name="q1_${idx}" value="PASS" onchange="updateSummary1()"> P</label>
     </td>
     <td style="text-align:center;width:5%;padding:4px 2px;">
-      <label class="clbl"><input type="radio" name="q${idx}" value="FAIL" onchange="updateSummary()"> F</label>
+      <label class="clbl"><input type="radio" name="q1_${idx}" value="FAIL" onchange="updateSummary1()"> F</label>
     </td>
     <td style="text-align:center;width:5%;padding:4px 2px;">
-      <label class="clbl"><input type="radio" name="q${idx}" value="NA" onchange="updateSummary()"> N/A</label>
+      <label class="clbl"><input type="radio" name="q1_${idx}" value="NA" onchange="updateSummary1()"> N/A</label>
     </td>
     <td contenteditable="true" spellcheck="false" style="font-size:12px; width:17%;">${label}</td>
     <td style="width:10%;"><input class="tinput" type="text" placeholder="..."></td>
   `;
 }
 
-function buildQualTr(left, li, right, ri) {
+function buildQual1Tr(leftLabel, li, rightLabel, ri) {
   const tr = document.createElement('tr');
-  let html = makeQCell(left, li);
-  html += (right !== null) ? makeQCell(right, ri) : '<td colspan="5"></td>';
+  let html = makeQCell1(leftLabel, li);
+  html += (rightLabel !== null) ? makeQCell1(rightLabel, ri) : '<td colspan="5"></td>';
   tr.innerHTML = html;
   const td = document.createElement('td');
   td.className = 'np';
   td.style.cssText = 'width:28px;text-align:center;vertical-align:middle;padding:2px;';
-  td.innerHTML = `<button class="rbtn rrem" onclick="this.closest('tr').remove(); updateSummary()">✕</button>`;
+  td.innerHTML = `<button class="rbtn rrem" onclick="this.closest('tr').remove(); updateSummary1()">✕</button>`;
   tr.appendChild(td);
   return tr;
 }
 
-function initQual() {
-  const tbody = document.getElementById('qual-tbody');
+function initQual1() {
+  const tbody = document.getElementById('qual-tbody-1');
   tbody.innerHTML = '';
-  qIdx = 0;
+  qIdx1 = 0;
   for (let i = 0; i < qualDefs.length; i += 2) {
-    const left = qualDefs[i], right = qualDefs[i+1] ?? null;
-    tbody.appendChild(buildQualTr(left, qIdx++, right, right ? qIdx++ : -1));
+    const left = qualDefs[i];
+    const right = qualDefs[i + 1] ?? null;
+    tbody.appendChild(buildQual1Tr(left, qIdx1++, right, right !== null ? qIdx1++ : -1));
   }
-  updateSummary();
+  updateSummary1();
 }
 
-function addQualRow() {
-  const tbody = document.getElementById('qual-tbody');
-  const li = qIdx++, ri = qIdx++;
-  tbody.appendChild(buildQualTr('รายการใหม่', li, 'รายการใหม่', ri));
+function addQualRow1() {
+  const tbody = document.getElementById('qual-tbody-1');
+  const li = qIdx1++, ri = qIdx1++;
+  tbody.appendChild(buildQual1Tr('รายการใหม่', li, 'รายการใหม่', ri));
 }
 
-function updateSummary() {
-  let p=0, f=0, n=0;
-  document.querySelectorAll('#qual-tbody input[type="radio"]:checked').forEach(el => {
-    if (el.value==='PASS') p++;
-    else if (el.value==='FAIL') f++;
-    else if (el.value==='NA') n++;
+function updateSummary1() {
+  let p = 0, f = 0, n = 0;
+  document.querySelectorAll('#qual-tbody-1 input[type="radio"]:checked').forEach(el => {
+    if (el.value === 'PASS') p++;
+    else if (el.value === 'FAIL') f++;
+    else if (el.value === 'NA') n++;
   });
-  document.getElementById('cnt-pass').textContent = p;
-  document.getElementById('cnt-fail').textContent = f;
-  document.getElementById('cnt-na').textContent = n;
+  document.getElementById('cnt-pass-1').textContent = p;
+  document.getElementById('cnt-fail-1').textContent = f;
+  document.getElementById('cnt-na-1').textContent = n;
 }
 
-/* ──────────────────────────────────
-   APPARATUS
-────────────────────────────────── */
+/* ══════════════════════════════════════════
+   SECTION 2 — QUANTITATIVE TASKS (measured)
+   tbody: #qual-tbody-2 | summary: #cnt-*-2
+══════════════════════════════════════════ */
+const quantDefs = [
+  { setting: 'Air Temperature (36°C)', criteria: '±0.8°C', set: '', measured: '' },
+  { setting: 'Air Temperature (37°C)', criteria: '±0.8°C', set: '', measured: '' },
+  { setting: 'Air Temperature (38°C)', criteria: '±0.8°C', set: '', measured: '' },
+  { setting: 'Skin Temperature Mode', criteria: '±0.5°C', set: '', measured: '' },
+  { setting: 'Alarm – High Temperature', criteria: 'Activate', set: '', measured: '' },
+  { setting: 'Alarm – Low Temperature', criteria: 'Activate', set: '', measured: '' },
+  { setting: 'Oxygen Concentration', criteria: '±3%', set: '', measured: '' },
+  { setting: 'Leakage Current (Earth)', criteria: '< 500 µA', set: '—', measured: '' },
+  { setting: 'Leakage Current (Enclosure)', criteria: '< 100 µA', set: '—', measured: '' },
+];
+
+let qIdx2 = 0; // radio-name counter for section 2
+
+function buildQuant2Tr(row) {
+  const idx = qIdx2++;
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td contenteditable="true" spellcheck="false" style="font-size:12px;">${row.setting}</td>
+    <td><input class="tinput" type="text" value="${row.criteria}" style="text-align:center;"></td>
+    <td><input class="tinput" type="text" value="${row.set}" style="text-align:center;" placeholder="—"></td>
+    <td><input class="tinput" type="text" value="${row.measured}" style="text-align:center;" placeholder="..."></td>
+    <td style="text-align:center;padding:4px 2px;">
+      <label class="clbl"><input type="radio" name="q2_${idx}" value="PASS" onchange="updateSummary2()"> P</label>
+    </td>
+    <td style="text-align:center;padding:4px 2px;">
+      <label class="clbl"><input type="radio" name="q2_${idx}" value="FAIL" onchange="updateSummary2()"> F</label>
+    </td>
+    <td style="text-align:center;padding:4px 2px;">
+      <label class="clbl"><input type="radio" name="q2_${idx}" value="NA" onchange="updateSummary2()"> N/A</label>
+    </td>
+    <td><input class="tinput" type="text" placeholder="..."></td>
+    <td class="np" style="text-align:center;vertical-align:middle;padding:2px;">
+      <button class="rbtn rrem" onclick="this.closest('tr').remove(); updateSummary2()">✕</button>
+    </td>
+  `;
+  return tr;
+}
+
+function initQual2() {
+  const tbody = document.getElementById('qual-tbody-2');
+  tbody.innerHTML = '';
+  qIdx2 = 0;
+  quantDefs.forEach(row => tbody.appendChild(buildQuant2Tr(row)));
+  updateSummary2();
+}
+
+function addQualRow2() {
+  const tbody = document.getElementById('qual-tbody-2');
+  tbody.appendChild(buildQuant2Tr({ setting: 'รายการใหม่', criteria: '', set: '', measured: '' }));
+}
+
+function updateSummary2() {
+  let p = 0, f = 0, n = 0;
+  document.querySelectorAll('#qual-tbody-2 input[type="radio"]:checked').forEach(el => {
+    if (el.value === 'PASS') p++;
+    else if (el.value === 'FAIL') f++;
+    else if (el.value === 'NA') n++;
+  });
+  document.getElementById('cnt-pass-2').textContent = p;
+  document.getElementById('cnt-fail-2').textContent = f;
+  document.getElementById('cnt-na-2').textContent = n;
+}
+
+/* ══════════════════════════════════════════
+   TEST APPARATUS
+══════════════════════════════════════════ */
 function addAppRow() {
   const tbody = document.getElementById('app-tbody');
   const tr = document.createElement('tr');
@@ -628,46 +761,21 @@ function addAppRow() {
   tbody.appendChild(tr);
 }
 
-/* ──────────────────────────────────
-   QUANT ROWS
-────────────────────────────────── */
-function addTempRow() {
-  const c = document.getElementById('temp-rows');
-  const d = document.createElement('div');
-  d.className = 'qrow';
-  d.innerHTML = `<span contenteditable="true" spellcheck="false">พารามิเตอร์ใหม่</span><input class="qinput" type="number" step="0.1"><input class="qinput" type="number" step="0.1"><span contenteditable="true" spellcheck="false" style="text-align:center;font-size:11px;color:var(--gray-700);">—</span><span contenteditable="true" spellcheck="false" style="text-align:center;font-size:11px;color:var(--gray-700);">—</span><input class="qinput" type="text" style="text-align:left;">`;
-  c.appendChild(d);
-}
-
-function addAlarmRow() {
-  const c = document.getElementById('alarm-rows');
-  const d = document.createElement('div');
-  d.className = 'qrow';
-  d.innerHTML = `<span contenteditable="true" spellcheck="false">Alarm ใหม่</span><input class="qinput" type="text"><input class="qinput" type="text"><select class="qinput"><option>—</option><option>PASS</option><option>FAIL</option></select><input class="qinput" type="checkbox" style="width:18px;height:18px;"><input class="qinput" type="text" style="text-align:left;">`;
-  c.appendChild(d);
-}
-
-function addElecRow() {
-  const c = document.getElementById('elec-rows');
-  const d = document.createElement('div');
-  d.className = 'qrow';
-  d.innerHTML = `<span contenteditable="true" spellcheck="false">Test ใหม่</span><span contenteditable="true" spellcheck="false" style="text-align:center;font-size:11px;color:var(--gray-700);">—</span><input class="qinput" type="number" step="0.01"><select class="qinput"><option>—</option><option>PASS</option><option>FAIL</option></select><input class="qinput" type="checkbox" style="width:18px;height:18px;"><input class="qinput" type="text" style="text-align:left;">`;
-  c.appendChild(d);
-}
-
-/* ──────────────────────────────────
+/* ══════════════════════════════════════════
    CLEAR / PDF
-────────────────────────────────── */
+══════════════════════════════════════════ */
 function clearForm() {
   if (!confirm('ต้องการล้างข้อมูลที่กรอกทั้งหมดใช่ไหม?\n(ข้อความในฟอร์มจะยังคงอยู่ แค่ล้างค่าที่กรอก)')) return;
-  document.querySelectorAll('input[type="text"], input[type="number"], input[type="date"], textarea').forEach(el => el.value = '');
-  document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(el => el.checked = false);
+  document.querySelectorAll('input[type="text"], input[type="number"], input[type="date"], textarea')
+    .forEach(el => el.value = '');
+  document.querySelectorAll('input[type="radio"], input[type="checkbox"]')
+    .forEach(el => el.checked = false);
   document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
-  updateSummary();
+  updateSummary1();
+  updateSummary2();
 }
 
 function exportPDF() {
-  // hide UI-only elements
   document.querySelectorAll('.np, .row-acts').forEach(el => el.style.setProperty('display','none','important'));
   document.querySelector('.toolbar').style.display = 'none';
 
@@ -677,7 +785,7 @@ function exportPDF() {
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: { scale: 2, useCORS: true, scrollY: 0, logging: false },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+    pagebreak: {mode: ['css', 'legacy'],before: '.page-break'}
   };
 
   html2pdf().set(opt).from(document.getElementById('form-page')).save().then(() => {
@@ -687,7 +795,8 @@ function exportPDF() {
 }
 
 /* ── INIT ── */
-initQual();
+initQual1();
+initQual2();
 </script>
 </body>
 </html>
