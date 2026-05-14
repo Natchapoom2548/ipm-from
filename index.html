@@ -137,6 +137,853 @@ tr:nth-child(even) td { background: var(--gray-50); }
 }
 .tinput:focus { background: var(--blue-light); border-radius: 3px; }
 
+/* ── FIX: tinput-area now uses textarea wrapping properly ── */
+.tinput-area {
+  display: block; width: 100%; resize: none; overflow: hidden;
+  min-height: 24px; height: auto; line-height: 1.45; white-space: pre-wrap;
+  border: none; outline: none;
+  font-family: 'Sarabun', sans-serif; font-size: 12px;
+  background: transparent; padding: 1px 2px; color: var(--gray-900);
+}
+.tinput-area:focus { background: var(--blue-light); border-radius: 3px; }
+
+.clbl { display: flex; align-items: center; gap: 2px; font-size: 11px; cursor: pointer; white-space: nowrap; }
+.clbl input { width: 13px; height: 13px; accent-color: var(--blue); cursor: pointer; }
+
+.row-acts { display: flex; gap: 4px; justify-content: flex-end; margin: 4px 0; }
+.rbtn {
+  font-size: 11px; padding: 3px 10px; border-radius: 5px; cursor: pointer;
+  border: 1px solid; font-family: 'Sarabun', sans-serif; font-weight: 600; transition: all .15s;
+}
+.radd { color: var(--green); border-color: var(--green); background: #fff; }
+.radd:hover { background: #d4edda; }
+.rrem { color: var(--red); border-color: var(--red); background: #fff; }
+.rrem:hover { background: #f8d7da; }
+
+tr.group-header td {
+  background: var(--blue-light) !important;
+  font-weight: 700;
+  color: var(--blue-dark);
+  border-top: 2px solid var(--blue-mid);
+}
+tr.sub-row td.sub-indent {
+  padding-left: 18px;
+  font-size: 12px;
+  color: var(--gray-700);
+  background: #fff;
+}
+tr.sub-row:nth-child(even) td.sub-indent {
+  background: var(--gray-50);
+}
+tr.group-add-row td {
+  background: #f0f5ff !important;
+  padding: 3px 8px;
+  border-top: none;
+}
+.radd-sub {
+  font-size: 10.5px; padding: 2px 8px; border-radius: 4px; cursor: pointer;
+  border: 1px dashed var(--blue-mid); color: var(--blue-mid); background: #fff;
+  font-family: 'Sarabun', sans-serif; font-weight: 600; transition: all .15s;
+}
+.radd-sub:hover { background: var(--blue-light); }
+
+tr.perf-header td {
+  background: var(--blue) !important;
+  color: #fff !important;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+.sumbar {
+  display: flex; gap: 12px; background: var(--gray-50);
+  border: 1.5px solid var(--gray-200); border-radius: 8px;
+  padding: 9px 14px; margin-top: 12px; flex-wrap: wrap; align-items: center; font-size: 13px;
+}
+.badge { display: inline-block; padding: 2px 10px; border-radius: 20px; font-weight: 700; font-size: 12px; }
+.bp { background: #d4edda; color: var(--green); }
+.bf { background: #f8d7da; color: var(--red); }
+.bn { background: var(--gray-100); color: var(--gray-700); }
+
+.sigsec { margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.sigbox { border: 1.5px dashed var(--gray-300); border-radius: 8px; padding: 12px 16px; text-align: center; }
+.sigline { border-bottom: 1.5px solid var(--gray-700); margin: 28px 16px 8px; }
+
+.comment-area {
+  width: 100%; border: 1.5px solid var(--gray-200); border-radius: 6px;
+  padding: 8px 10px; font-family: 'Sarabun', sans-serif; font-size: 12.5px;
+  resize: none; min-height: 60px; height: auto; outline: none; color: var(--gray-900);
+  transition: border-color .2s; margin-top: 6px; overflow: hidden;
+}
+.comment-area:focus { border-color: var(--blue); }
+hr.dv { border: none; border-top: 1px solid var(--gray-200); margin: 12px 0; }
+
+.page-break { display: none; }
+
+@media print {
+  @page { size: A4 portrait; margin: 10mm 8mm 10mm 8mm; }
+  html { font-size: 11px; }
+  html, body {
+    width: 100%; margin: 0; padding: 0;
+    background: #fff !important;
+    overflow: visible !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    color-adjust: exact;
+  }
+  body { padding: 0 !important; }
+  .toolbar, .row-acts, .np { display: none !important; }
+  #form-page {
+    width: 100%; max-width: 100%; margin: 0;
+    padding: 6px 8px; box-shadow: none !important;
+    border-radius: 0 !important; overflow: visible !important;
+  }
+  .h-title        { font-size: 14px !important; }
+  .h-dept         { font-size: 11px !important; }
+  .h-hosp         { font-size: 10px !important; }
+  .sec-title      { font-size: 12px !important; margin: 8px 0 5px !important; }
+  .frow, .flabel, .finput { font-size: 10.5px !important; }
+  .ipm-types      { font-size: 10.5px !important; }
+  .env-row        { font-size: 10.5px !important; }
+  .status-title   { font-size: 11px !important; }
+  .status-opt     { font-size: 10.5px !important; }
+  table           { font-size: 10px !important; }
+  th              { padding: 4px 5px !important; font-size: 10px !important; }
+  td              { padding: 3px 5px !important; }
+  .tinput, .tinput-area { font-size: 10px !important; }
+  .clbl           { font-size: 9.5px !important; }
+  .sumbar         { font-size: 10.5px !important; padding: 6px 10px !important; }
+  .badge          { font-size: 10px !important; padding: 1px 7px !important; }
+  .sigbox         { padding: 8px 10px !important; }
+  .comment-area   { font-size: 10px !important; min-height: 40px !important; }
+  hr.dv           { margin: 6px 0 !important; }
+  .header         { padding-bottom: 8px !important; margin-bottom: 6px !important; }
+  .proc-row       { margin-bottom: 8px !important; }
+  .status-box     { padding: 5px 10px !important; min-width: 160px !important; }
+  .sigsec         { margin-top: 10px !important; gap: 10px !important; }
+  .sigline        { margin: 18px 10px 5px !important; }
+  [contenteditable="true"] { background: transparent !important; box-shadow: none !important; outline: none !important; }
+  table { width: 100%; border-collapse: collapse; page-break-inside: auto; break-inside: auto; }
+  thead { display: table-header-group; }
+  tfoot { display: table-footer-group; }
+  tr            { page-break-inside: avoid; break-inside: avoid; }
+  td, th        { page-break-inside: avoid; break-inside: avoid; }
+  .sumbar       { page-break-inside: avoid; break-inside: avoid; }
+  .sigbox       { page-break-inside: avoid; break-inside: avoid; }
+  .sigsec       { page-break-inside: avoid; break-inside: avoid; }
+  .sec-title    { page-break-after: avoid;  break-after: avoid;  }
+  .header       { page-break-inside: avoid; break-inside: avoid; }
+  .proc-row     { page-break-inside: avoid; break-inside: avoid; }
+  .fg           { page-break-inside: avoid; break-inside: avoid; }
+  .env-row      { page-break-inside: avoid; break-inside: avoid; }
+  .status-box   { page-break-inside: avoid; break-inside: avoid; }
+  tr.group-header { page-break-after: avoid; break-after: avoid; }
+  tr.perf-header  { page-break-after: avoid; break-after: avoid; }
+  .page-break { display: block; width: 100%; height: 0; page-break-before: always; break-before: page; }
+  textarea { overflow: hidden; resize: none; }
+  input, textarea, select { color: #000 !important; }
+  tr.group-header td  { background: var(--blue-light) !important; }
+  tr.perf-header td   { background: var(--blue) !important; color: #fff !important; }
+  tr.group-add-row    { display: none !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="toolbar-tip">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+    <strong>แก้ไขได้ทุกส่วน</strong> — คลิกที่ข้อความใดก็ได้เพื่อแก้ไข | ปุ่ม "+ แถวย่อย" เพิ่มแถวในกลุ่ม
+  </div>
+  <div class="toolbar-right">
+    <button class="btn btn-danger" onclick="clearForm()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6l-1 14H6L5 6M8 6V4h8v2"/></svg>
+      ล้างข้อมูล
+    </button>
+    <button class="btn btn-success" onclick="printForm()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>
+      พิมพ์ / บันทึก PDF
+    </button>
+  </div>
+</div>
+
+<div id="form-page">
+
+  <div class="header">
+    <div class="header-text">
+      <div class="h-title" contenteditable="true" spellcheck="false">Inspection and Preventive Maintenance System of <em>Infant Incubator</em></div>
+      <div class="h-dept" contenteditable="true" spellcheck="false">Biomedical Engineering</div>
+      <div class="h-hosp" contenteditable="true" spellcheck="false"></div>
+    </div>
+  </div>
+
+  <div class="proc-row">
+    <div class="status-box">
+      <div class="status-title" contenteditable="true" spellcheck="false">STATUS</div>
+      <label class="status-opt"><input type="radio" name="status" value="PASSED">
+        <span contenteditable="true" spellcheck="false" onclick="event.stopPropagation()">PASSED</span></label>
+      <label class="status-opt"><input type="radio" name="status" value="SERVICE_REQUIRED">
+        <span contenteditable="true" spellcheck="false" onclick="event.stopPropagation()">SERVICE REQUIRED</span></label>
+      <label class="status-opt"><input type="radio" name="status" value="REMOVE_FROM_USE">
+        <span contenteditable="true" spellcheck="false" onclick="event.stopPropagation()">REMOVE FROM USE</span></label>
+    </div>
+  </div>
+
+  <span class="sec-title" contenteditable="true" spellcheck="false">Equipment Information</span>
+  <div class="fg fg-2">
+    <div class="frow"><span class="flabel" contenteditable="true" spellcheck="false">Department :</span><input class="finput" type="text" placeholder="กรอกแผนก"></div>
+    <div class="frow"><span class="flabel" contenteditable="true" spellcheck="false">ID Code :</span><input class="finput" type="text"></div>
+    <div class="frow"><span class="flabel" contenteditable="true" spellcheck="false">Equipment No. :</span><input class="finput" type="text"></div>
+    <div class="frow"><span class="flabel" contenteditable="true" spellcheck="false">IPM Round :</span><input class="finput" type="text"></div>
+    <div class="frow"><span class="flabel" contenteditable="true" spellcheck="false">IPM Date :</span><input class="finput" type="date"></div>
+    <div class="frow"><span class="flabel" contenteditable="true" spellcheck="false">IPM Due Date :</span><input class="finput" type="date"></div>
+    <div class="frow"><span class="flabel" contenteditable="true" spellcheck="false">Manufacturer :</span><input class="finput" type="text"></div>
+    <div class="frow"><span class="flabel" contenteditable="true" spellcheck="false">Model :</span><input class="finput" type="text"></div>
+    <div class="frow"><span class="flabel" contenteditable="true" spellcheck="false">SN :</span><input class="finput" type="text"></div>
+    <div class="frow"><span class="flabel" contenteditable="true" spellcheck="false">Location :</span><input class="finput" type="text"></div>
+  </div>
+  <div class="frow" style="margin-top:6px;">
+    <span class="flabel" contenteditable="true" spellcheck="false">IPM Report :</span>
+    <input class="finput" type="text">
+  </div>
+
+  <hr class="dv">
+
+  <span class="sec-title" contenteditable="true" spellcheck="false">IPM Information</span>
+  <div style="font-size:13px; font-weight:600; color:var(--blue-dark); margin-bottom:4px;" contenteditable="true" spellcheck="false">IPM Type :</div>
+  <div class="ipm-types">
+    <label><input type="checkbox"> <span contenteditable="true" spellcheck="false" onclick="event.stopPropagation()">IPM Planning</span></label>
+    <label><input type="checkbox"> <span contenteditable="true" spellcheck="false" onclick="event.stopPropagation()">Re-IPM</span></label>
+    <label><input type="checkbox"> <span contenteditable="true" spellcheck="false" onclick="event.stopPropagation()">New Equipment</span></label>
+    <label><input type="checkbox"> <span contenteditable="true" spellcheck="false" onclick="event.stopPropagation()">Post Repair</span></label>
+    <label><input type="checkbox"> <span contenteditable="true" spellcheck="false" onclick="event.stopPropagation()">IPM Miss Planning</span></label>
+    <label><input type="checkbox"> <span contenteditable="true" spellcheck="false" onclick="event.stopPropagation()">Other</span></label>
+  </div>
+  <div class="env-row" style="margin-top:8px;">
+    <span style="font-size:13px; font-weight:600; color:var(--blue-dark);" contenteditable="true" spellcheck="false">IPM Environment :</span>
+    <div class="env-grp">
+      <span style="font-size:13px;" contenteditable="true" spellcheck="false">Ambient Temperature:</span>
+      <input class="finput finput-sm" type="number" step="0.1">
+      <span style="font-size:13px;" contenteditable="true" spellcheck="false">°C</span>
+    </div>
+    <div class="env-grp">
+      <span style="font-size:13px;" contenteditable="true" spellcheck="false">Humidity:</span>
+      <input class="finput finput-sm" type="number" step="0.1">
+      <span style="font-size:13px;" contenteditable="true" spellcheck="false">%</span>
+    </div>
+  </div>
+
+  <hr class="dv">
+
+  <span class="sec-title" contenteditable="true" spellcheck="false">Test Apparatus</span>
+  <table>
+    <thead>
+      <tr>
+        <th contenteditable="true" spellcheck="false" style="text-align:left; width:30%;">Equipment</th>
+        <th contenteditable="true" spellcheck="false">Manufacturer</th>
+        <th contenteditable="true" spellcheck="false">Brand / Model</th>
+        <th contenteditable="true" spellcheck="false">Serial No.</th>
+        <th contenteditable="true" spellcheck="false">Certificate No.</th>
+        <th contenteditable="true" spellcheck="false">Cal. Due Date</th>
+        <th class="np" style="width:30px; background:var(--blue-dark);"></th>
+      </tr>
+    </thead>
+    <tbody id="app-tbody">
+      <tr>
+        <td contenteditable="true" spellcheck="false">Electrical Safety Analyzer (or equivalent)</td>
+        <td><textarea class="tinput tinput-area" rows="1" placeholder="—"></textarea></td>
+        <td><textarea class="tinput tinput-area" rows="1" placeholder="—"></textarea></td>
+        <td><textarea class="tinput tinput-area" rows="1" placeholder="—"></textarea></td>
+        <td><textarea class="tinput tinput-area" rows="1" placeholder="เลขที่ใบรับรอง"></textarea></td>
+        <td><input class="tinput" type="date"></td>
+        <td class="np" style="text-align:center;"><button class="rbtn rrem" onclick="this.closest('tr').remove()">✕</button></td>
+      </tr>
+      <tr>
+        <td contenteditable="true" spellcheck="false">INCU Incubator Analyzer (or equivalent)</td>
+        <td><textarea class="tinput tinput-area" rows="1" placeholder="—"></textarea></td>
+        <td><textarea class="tinput tinput-area" rows="1" placeholder="—"></textarea></td>
+        <td><textarea class="tinput tinput-area" rows="1" placeholder="—"></textarea></td>
+        <td><textarea class="tinput tinput-area" rows="1" placeholder="เลขที่ใบรับรอง"></textarea></td>
+        <td><input class="tinput" type="date"></td>
+        <td class="np" style="text-align:center;"><button class="rbtn rrem" onclick="this.closest('tr').remove()">✕</button></td>
+      </tr>
+      <tr>
+        <td contenteditable="true" spellcheck="false">Stopwatch</td>
+        <td><textarea class="tinput tinput-area" rows="1" placeholder="—"></textarea></td>
+        <td><textarea class="tinput tinput-area" rows="1" placeholder="—"></textarea></td>
+        <td><textarea class="tinput tinput-area" rows="1" placeholder="—"></textarea></td>
+        <td><textarea class="tinput tinput-area" rows="1" placeholder="เลขที่ใบรับรอง"></textarea></td>
+        <td><input class="tinput" type="date"></td>
+        <td class="np" style="text-align:center;"><button class="rbtn rrem" onclick="this.closest('tr').remove()">✕</button></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="row-acts">
+    <button class="rbtn radd" onclick="addAppRow()">+ เพิ่มอุปกรณ์</button>
+  </div>
+
+  <hr class="dv">
+
+  <div class="page-break"></div>
+  <span class="sec-title" contenteditable="true" spellcheck="false">IPM Result</span>
+  <table>
+    <thead>
+      <tr>
+        <th colspan="11" contenteditable="true" spellcheck="false" style="font-size:14px; padding:9px;">QUALITATIVE TASKS</th>
+      </tr>
+      <tr>
+        <th contenteditable="true" spellcheck="false" style="width:6%">PASS</th>
+        <th contenteditable="true" spellcheck="false" style="width:5%">FAIL</th>
+        <th contenteditable="true" spellcheck="false" style="width:5%">N/A</th>
+        <th contenteditable="true" spellcheck="false" style="width:17%">Check</th>
+        <th contenteditable="true" spellcheck="false" style="width:10%">Comment</th>
+        <th contenteditable="true" spellcheck="false" style="width:6%">PASS</th>
+        <th contenteditable="true" spellcheck="false" style="width:5%">FAIL</th>
+        <th contenteditable="true" spellcheck="false" style="width:5%">N/A</th>
+        <th contenteditable="true" spellcheck="false" style="width:17%">Check</th>
+        <th contenteditable="true" spellcheck="false" style="width:10%">Comment</th>
+        <th class="np" style="width:28px; background:var(--blue-dark);"></th>
+      </tr>
+    </thead>
+    <tbody id="qual-tbody-1"></tbody>
+  </table>
+  <div class="row-acts">
+    <button class="rbtn radd" onclick="addQualRow1()">+ เพิ่มรายการ (2 คอลัมน์)</button>
+  </div>
+  <div class="sumbar">
+    <span style="font-weight:700; color:var(--blue-dark);" contenteditable="true" spellcheck="false">สรุปผล Qualitative :</span>
+    <span><span class="badge bp" id="cnt-pass-1">0</span> PASS</span>
+    <span><span class="badge bf" id="cnt-fail-1">0</span> FAIL</span>
+    <span><span class="badge bn" id="cnt-na-1">0</span> N/A</span>
+  </div>
+
+  <hr class="dv">
+
+  <div class="page-break"></div>
+  <span class="sec-title" contenteditable="true" spellcheck="false">Performance / Quantitative Tasks</span>
+
+  <table id="quant-table">
+    <thead>
+      <tr>
+        <th colspan="9" contenteditable="true" spellcheck="false" style="font-size:14px; padding:9px; letter-spacing:1px;">QUANTITATIVE TASKS</th>
+      </tr>
+      <tr>
+        <th contenteditable="true" spellcheck="false" style="width:22%; text-align:left; padding-left:8px;">Control Setting</th>
+        <th contenteditable="true" spellcheck="false" style="width:14%">Criteria</th>
+        <th contenteditable="true" spellcheck="false" style="width:13%">Setting</th>
+        <th contenteditable="true" spellcheck="false" style="width:13%">Display</th>
+        <th contenteditable="true" spellcheck="false" style="width:13%">Measured</th>
+        <th contenteditable="true" spellcheck="false" style="width:6%">PASS</th>
+        <th contenteditable="true" spellcheck="false" style="width:6%">FAIL</th>
+        <th contenteditable="true" spellcheck="false" style="width:6%">N/A</th>
+        <th class="np" style="width:28px; background:var(--blue-dark);"></th>
+      </tr>
+    </thead>
+    <tbody id="qual-tbody-2"></tbody>
+  </table>
+
+  <div class="row-acts">
+    <button class="rbtn radd" onclick="addQuantGroup()">+ เพิ่มกลุ่มรายการใหม่</button>
+  </div>
+
+  <div class="sumbar">
+    <span style="font-weight:700; color:var(--blue-dark);" contenteditable="true" spellcheck="false">สรุปผล Quantitative :</span>
+    <span><span class="badge bp" id="cnt-pass-2">0</span> PASS</span>
+    <span><span class="badge bf" id="cnt-fail-2">0</span> FAIL</span>
+    <span><span class="badge bn" id="cnt-na-2">0</span> N/A</span>
+  </div>
+
+  <hr class="dv">
+
+  <div class="page-break"></div>
+  <table>
+    <thead>
+      <tr>
+        <th colspan="4" contenteditable="true" spellcheck="false"
+            style="font-size:15px; padding:10px; letter-spacing:2px;">
+          PREVENTIVE MAINTENANCE
+        </th>
+      </tr>
+      <tr>
+        <th contenteditable="true" spellcheck="false" style="width:80px;">Done</th>
+        <th contenteditable="true" spellcheck="false" style="text-align:left; padding-left:10px; width:38%;">Task</th>
+        <th contenteditable="true" spellcheck="false">Comment</th>
+        <th class="np" style="width:30px; background:var(--blue-dark);"></th>
+      </tr>
+    </thead>
+    <tbody id="pm-tbody"></tbody>
+  </table>
+  <div class="row-acts">
+    <button class="rbtn radd" onclick="addPMRow()">+ เพิ่มรายการ</button>
+  </div>
+
+  <hr class="dv">
+
+  <span class="sec-title" style="text-decoration:none;" contenteditable="true" spellcheck="false">หมายเหตุ / Remarks</span>
+  <textarea class="comment-area" rows="4" placeholder="บันทึกข้อสังเกต, ปัญหา, หรือข้อเสนอแนะ..."></textarea>
+
+  <hr class="dv">
+
+  <div class="sigsec">
+    <div class="sigbox">
+      <div style="font-size:13px; font-weight:600; color:var(--blue-dark);" contenteditable="true" spellcheck="false">Biomedical Engineer / ช่างชีวการแพทย์</div>
+      <div class="sigline"></div>
+      <div style="font-size:12px; color:var(--gray-700);" contenteditable="true" spellcheck="false">ลายเซ็น / Signature</div>
+      <div style="margin-top:8px;">
+        <div class="frow"><span class="flabel" contenteditable="true" spellcheck="false">ชื่อ Name :</span><input class="finput" type="text"></div>
+        <div class="frow" style="margin-top:4px;"><span class="flabel" contenteditable="true" spellcheck="false">วันที่ Date :</span><input class="finput" type="date"></div>
+      </div>
+    </div>
+    <div class="sigbox">
+      <div style="font-size:13px; font-weight:600; color:var(--blue-dark);" contenteditable="true" spellcheck="false">Head of Biomedical / หัวหน้าวิศวกรรมการแพทย์</div>
+      <div class="sigline"></div>
+      <div style="font-size:12px; color:var(--gray-700);" contenteditable="true" spellcheck="false">ลายเซ็น / Signature</div>
+      <div style="margin-top:8px;">
+        <div class="frow"><span class="flabel" contenteditable="true" spellcheck="false">ชื่อ Name :</span><input class="finput" type="text"></div>
+        <div class="frow" style="margin-top:4px;"><span class="flabel" contenteditable="true" spellcheck="false">วันที่ Date :</span><input class="finput" type="date"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = el.scrollHeight + 'px';
+}
+document.addEventListener('input', function(e) {
+  if (e.target.matches('.tinput-area, .comment-area')) autoResize(e.target);
+});
+function resizeAll() {
+  document.querySelectorAll('.tinput-area, .comment-area').forEach(autoResize);
+}
+
+const qualDefs = [
+  "Chassis / Housing","Mount / Fasteners","Casters / Wheels / Breaks",
+  "AC Plug","Line Cord","Strain Reliefs","Cables","Control / Switches",
+  "Motor / Fan","Fluid Levels","Filter / Screens","Cleaning / Appearance",
+  "Battery / Charger","Time / Date Setting","Indicators / Displays",
+  "Network / Wireless Interfaces","Recorder","Alarms / Interlocks",
+  "Audible Signals","Labeling","Accessories","Door Seal / Gaskets"
+];
+let qIdx1 = 0;
+
+function makeQCell1(label, idx) {
+  return `
+    <td style="text-align:center;width:6%;padding:4px 2px;">
+      <label class="clbl"><input type="radio" name="q1_${idx}" value="PASS" onchange="updateSummary1()"> P</label>
+    </td>
+    <td style="text-align:center;width:5%;padding:4px 2px;">
+      <label class="clbl"><input type="radio" name="q1_${idx}" value="FAIL" onchange="updateSummary1()"> F</label>
+    </td>
+    <td style="text-align:center;width:5%;padding:4px 2px;">
+      <label class="clbl"><input type="radio" name="q1_${idx}" value="NA" onchange="updateSummary1()"> N/A</label>
+    </td>
+    <td contenteditable="true" spellcheck="false" style="font-size:12px; width:17%;">${label}</td>
+    <td style="width:10%;"><textarea class="tinput tinput-area" placeholder="..." rows="1"></textarea></td>
+  `;
+}
+
+function buildQual1Tr(leftLabel, li, rightLabel, ri) {
+  const tr = document.createElement('tr');
+  let html = makeQCell1(leftLabel, li);
+  html += (rightLabel !== null) ? makeQCell1(rightLabel, ri) : '<td colspan="5"></td>';
+  tr.innerHTML = html;
+  const td = document.createElement('td');
+  td.className = 'np';
+  td.style.cssText = 'width:28px;text-align:center;vertical-align:middle;padding:2px;';
+  td.innerHTML = `<button class="rbtn rrem" onclick="this.closest('tr').remove(); updateSummary1()">✕</button>`;
+  tr.appendChild(td);
+  return tr;
+}
+
+function initQual1() {
+  const tbody = document.getElementById('qual-tbody-1');
+  tbody.innerHTML = ''; qIdx1 = 0;
+  for (let i = 0; i < qualDefs.length; i += 2) {
+    const left = qualDefs[i], right = qualDefs[i+1] ?? null;
+    tbody.appendChild(buildQual1Tr(left, qIdx1++, right, right !== null ? qIdx1++ : -1));
+  }
+  updateSummary1();
+}
+
+function addQualRow1() {
+  const tbody = document.getElementById('qual-tbody-1');
+  const li = qIdx1++, ri = qIdx1++;
+  tbody.appendChild(buildQual1Tr('รายการใหม่', li, 'รายการใหม่', ri));
+}
+
+function updateSummary1() {
+  let p=0, f=0, n=0;
+  document.querySelectorAll('#qual-tbody-1 input[type="radio"]:checked').forEach(el => {
+    if (el.value==='PASS') p++; else if (el.value==='FAIL') f++; else if (el.value==='NA') n++;
+  });
+  document.getElementById('cnt-pass-1').textContent = p;
+  document.getElementById('cnt-fail-1').textContent = f;
+  document.getElementById('cnt-na-1').textContent = n;
+}
+
+let gCounter = 0;
+let qIdx2 = 0;
+
+const quantGroups = [
+  { label: 'Performance Testing', isSection: true },
+  { label: 'Self-Test or Specific Performance Testing (Service Mode)', criteria: '', rows: [{}], noSubCols: true },
+  { label: 'Verify unit operates on battery', criteria: '≥ 30 minute', rows: [{}], noSubCols: true },
+  { label: 'Warm-up time (30 minute)', criteria: '', rows: [{}], noSubCols: true },
+  { label: 'Alarm function', criteria: '', rows: [{}], noSubCols: true },
+  { label: 'Air temperature (°C)', criteria: '± 1 °C', rows: [{ setting:'33 °C' }, { setting:'35 °C' }, { setting:'37 °C' }] },
+  { label: 'Skin temperature (°C)', criteria: '± 0.5 °C', rows: [{ setting:'35°C' }, { setting:'36°C' }, { setting:'37 °C' }] },
+  { label: 'Air flow (m/s)', criteria: '≤ 0.35 m/s', rows: [{}] },
+  { label: 'Noise level (dB)', criteria: '≤ 60 dB', rows: [{}] },
+  { label: 'Humidity (%)', criteria: '± 10 %', rows: [{}] },
+  { label: 'High temperature (°C)', criteria: '≤ 40 °C', rows: [{}] },
+  { label: 'Weight Scale', criteria: '± 5 g', rows: [{}] },
+  { label: 'Leakage Current (Earth)', criteria: '< 500 µA', rows: [{}] },
+  { label: 'Leakage Current (Enclosure)', criteria: '< 100 µA', rows: [{}] },
+];
+
+function makeSubCells(rowData, gid, noSubCols) {
+  const idx = qIdx2++;
+  const setting = (rowData && rowData.setting) ? rowData.setting : '';
+  return `
+    <td><input class="tinput" type="text" value="${setting}" placeholder="—"></td>
+    <td><input class="tinput" type="text" placeholder="—"></td>
+    <td><input class="tinput" type="text" placeholder="—"></td>
+    <td style="text-align:center;padding:3px 2px;">
+      <label class="clbl"><input type="radio" name="q2_${idx}" value="PASS" onchange="updateSummary2()"> P</label>
+    </td>
+    <td style="text-align:center;padding:3px 2px;">
+      <label class="clbl"><input type="radio" name="q2_${idx}" value="FAIL" onchange="updateSummary2()"> F</label>
+    </td>
+    <td style="text-align:center;padding:3px 2px;">
+      <label class="clbl"><input type="radio" name="q2_${idx}" value="NA" onchange="updateSummary2()"> N/A</label>
+    </td>
+    <td class="np sub-del-cell" style="text-align:center;padding:2px;width:28px;">
+      <button class="rbtn rrem" style="font-size:10px;padding:2px 7px;" onclick="removeSubRow(this, ${gid})">✕</button>
+    </td>
+  `;
+}
+
+function refreshRowspan(gid) {
+  const tbody = document.getElementById('qual-tbody-2');
+  const headerTr = tbody.querySelector(`tr.group-header[data-gid="${gid}"]`);
+  if (!headerTr) return;
+  const subRows = tbody.querySelectorAll(`tr.sub-row[data-gid="${gid}"]`);
+  const addRow  = tbody.querySelector(`tr.group-add-row[data-gid="${gid}"]`);
+  const span = 1 + subRows.length + (addRow ? 1 : 0);
+  headerTr.querySelectorAll('td[data-rowspan]').forEach(td => { td.rowSpan = span; });
+}
+
+function removeSubRow(btn, gid) {
+  const tbody = document.getElementById('qual-tbody-2');
+  const tr = btn.closest('tr');
+  if (tr.classList.contains('group-header')) {
+    const extraSubs = tbody.querySelectorAll(`tr.sub-row[data-gid="${gid}"]`);
+    if (extraSubs.length === 0) {
+      alert('ไม่สามารถลบได้ — กลุ่มนี้ต้องมีอย่างน้อย 1 แถว\nถ้าต้องการลบทั้งกลุ่ม ให้กดปุ่ม ✕ ที่หัวกลุ่ม');
+      return;
+    }
+    const firstExtra = extraSubs[0];
+    const newSubCellsHTML = firstExtra.innerHTML;
+    const headerCells = Array.from(headerTr.children);
+    const toRemove = headerCells.filter(td => !td.dataset.rowspan);
+    toRemove.forEach(td => td.remove());
+    const delGroupTd = headerTr.querySelector('td[data-rowspan]:last-child');
+    const tempDiv = document.createElement('tbody');
+    tempDiv.innerHTML = `<tr>${newSubCellsHTML}</tr>`;
+    const newCells = Array.from(tempDiv.firstChild.children);
+    newCells.forEach(td => headerTr.insertBefore(td, delGroupTd));
+    firstExtra.remove();
+  } else {
+    const subRows = tbody.querySelectorAll(`tr.sub-row[data-gid="${gid}"]`);
+    if (subRows.length === 1) {
+      alert('ไม่สามารถลบได้ — กลุ่มนี้ต้องมีอย่างน้อย 1 แถว\nถ้าต้องการลบทั้งกลุ่ม ให้กดปุ่ม ✕ ที่หัวกลุ่ม');
+      return;
+    }
+    tr.remove();
+  }
+  refreshRowspan(gid);
+  updateSummary2();
+}
+
+function appendSubRow(tbody, gid, rowData, noSubCols) {
+  const addRow = tbody.querySelector(`tr.group-add-row[data-gid="${gid}"]`);
+  const tr = document.createElement('tr');
+  tr.className = 'sub-row';
+  tr.dataset.gid = gid;
+  tr.innerHTML = makeSubCells(rowData || {}, gid, noSubCols);
+  tbody.insertBefore(tr, addRow);
+}
+
+function addSubRow(gid, noSubCols) {
+  const tbody = document.getElementById('qual-tbody-2');
+  appendSubRow(tbody, gid, {}, noSubCols);
+  refreshRowspan(gid);
+  updateSummary2();
+}
+
+function removeGroup(gid) {
+  const tbody = document.getElementById('qual-tbody-2');
+  tbody.querySelectorAll(`[data-gid="${gid}"]`).forEach(tr => tr.remove());
+  updateSummary2();
+}
+
+function buildQuantGroup(g, tbody) {
+  const gid = ++gCounter;
+  const noSubCols = !!g.noSubCols;
+  if (g.isSection) {
+    const tr = document.createElement('tr');
+    tr.className = 'perf-header';
+    tr.dataset.gid = gid;
+    tr.innerHTML = `
+      <td colspan="8" contenteditable="true" spellcheck="false"
+          style="font-size:13px; font-weight:700; letter-spacing:1px; padding:7px 10px;">
+        ${g.label}
+      </td>
+      <td class="np" style="text-align:center; vertical-align:middle; padding:2px;">
+        <button class="rbtn rrem" onclick="removeGroup(${gid})">✕</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+    return;
+  }
+  const rows = (g.rows && g.rows.length) ? g.rows : [{}];
+  const totalSpan = rows.length + 1;
+  const headerTr = document.createElement('tr');
+  headerTr.className = 'group-header';
+  headerTr.dataset.gid = gid;
+  const labelTd = document.createElement('td');
+  labelTd.contentEditable = 'true';
+  labelTd.spellcheck = false;
+  labelTd.dataset.rowspan = '1';
+  labelTd.rowSpan = totalSpan;
+  labelTd.style.cssText = 'font-weight:700; color:var(--blue-dark); vertical-align:middle; font-size:12.5px; padding:6px 8px;';
+  labelTd.textContent = g.label;
+  const critTd = document.createElement('td');
+  critTd.contentEditable = 'true';
+  critTd.spellcheck = false;
+  critTd.dataset.rowspan = '1';
+  critTd.rowSpan = totalSpan;
+  critTd.style.cssText = 'text-align:center; vertical-align:middle; font-size:12px; color:var(--gray-700);';
+  critTd.textContent = g.criteria || '';
+  const delTd = document.createElement('td');
+  delTd.className = 'np';
+  delTd.dataset.rowspan = '1';
+  delTd.rowSpan = totalSpan;
+  delTd.style.cssText = 'text-align:center; vertical-align:middle; padding:2px; width:28px;';
+  delTd.innerHTML = `<button class="rbtn rrem" onclick="removeGroup(${gid})">✕</button>`;
+  headerTr.appendChild(labelTd);
+  headerTr.appendChild(critTd);
+  headerTr.insertAdjacentHTML('beforeend', makeSubCells(rows[0], gid, noSubCols));
+  headerTr.appendChild(delTd);
+  tbody.appendChild(headerTr);
+  for (let i = 1; i < rows.length; i++) {
+    appendSubRow(tbody, gid, rows[i], noSubCols);
+  }
+  const addTr = document.createElement('tr');
+  addTr.className = 'group-add-row np';
+  addTr.dataset.gid = gid;
+  addTr.innerHTML = `
+    <td colspan="6" style="padding:3px 8px; text-align:left; border-top:1px dashed var(--gray-300);">
+      <button class="radd-sub" onclick="addSubRow(${gid}, ${noSubCols})">+ แถวย่อย</button>
+    </td>
+  `;
+  tbody.appendChild(addTr);
+}
+
+function addQuantGroup() {
+  const tbody = document.getElementById('qual-tbody-2');
+  buildQuantGroup({ label: 'กลุ่มรายการใหม่', criteria: '', rows: [{}] }, tbody);
+  updateSummary2();
+}
+
+function initQual2() {
+  const tbody = document.getElementById('qual-tbody-2');
+  tbody.innerHTML = ''; gCounter = 0; qIdx2 = 0;
+  quantGroups.forEach(g => buildQuantGroup(g, tbody));
+  updateSummary2();
+}
+
+function updateSummary2() {
+  let p=0, f=0, n=0;
+  document.querySelectorAll('#qual-tbody-2 input[type="radio"]:checked').forEach(el => {
+    if (el.value==='PASS') p++; else if (el.value==='FAIL') f++; else if (el.value==='NA') n++;
+  });
+  document.getElementById('cnt-pass-2').textContent = p;
+  document.getElementById('cnt-fail-2').textContent = f;
+  document.getElementById('cnt-na-2').textContent = n;
+}
+
+const pmDefs = ['Clean','Lubricate','Replace Filter / Screens','Replace Battery','UPS / Power Check','Other'];
+
+function buildPMRow(label) {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td style="text-align:center;">
+      <input type="checkbox" style="width:16px;height:16px;accent-color:var(--blue);cursor:pointer;">
+    </td>
+    <td contenteditable="true" spellcheck="false">${label}</td>
+    <td><textarea class="tinput tinput-area" rows="1" placeholder="..."></textarea></td>
+    <td class="np" style="text-align:center;">
+      <button class="rbtn rrem" onclick="this.closest('tr').remove()">✕</button>
+    </td>
+  `;
+  return tr;
+}
+
+function initPM() {
+  const tbody = document.getElementById('pm-tbody');
+  tbody.innerHTML = '';
+  pmDefs.forEach(label => tbody.appendChild(buildPMRow(label)));
+}
+
+function addPMRow() {
+  const tbody = document.getElementById('pm-tbody');
+  const tr = buildPMRow('รายการใหม่');
+  tbody.appendChild(tr);
+  tr.querySelectorAll('.tinput-area').forEach(autoResize);
+}
+
+function addAppRow() {
+  const tbody = document.getElementById('app-tbody');
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td contenteditable="true" spellcheck="false">อุปกรณ์ใหม่</td>
+    <td><textarea class="tinput tinput-area" rows="1" placeholder="—"></textarea></td>
+    <td><textarea class="tinput tinput-area" rows="1" placeholder="—"></textarea></td>
+    <td><textarea class="tinput tinput-area" rows="1" placeholder="—"></textarea></td>
+    <td><textarea class="tinput tinput-area" rows="1" placeholder="เลขที่ใบรับรอง"></textarea></td>
+    <td><input class="tinput" type="date"></td>
+    <td class="np" style="text-align:center;"><button class="rbtn rrem" onclick="this.closest('tr').remove()">✕</button></td>
+  `;
+  tbody.appendChild(tr);
+}
+
+function clearForm() {
+  if (!confirm('ต้องการล้างข้อมูลที่กรอกทั้งหมดใช่ไหม?\n(ข้อความในฟอร์มจะยังคงอยู่ แค่ล้างค่าที่กรอก)')) return;
+  document.querySelectorAll('input[type="text"], input[type="number"], input[type="date"], textarea')
+    .forEach(el => { el.value = ''; autoResize(el); });
+  document.querySelectorAll('input[type="radio"], input[type="checkbox"]')
+    .forEach(el => el.checked = false);
+  updateSummary1(); updateSummary2();
+}
+
+function printForm() {
+  document.querySelectorAll('.tinput-area, .comment-area').forEach(el => autoResize(el));
+  window.print();
+}
+
+initQual1();
+initQual2();
+initPM();
+requestAnimationFrame(resizeAll);
+</script>
+</body>
+</html>  display: flex; gap: 10px; justify-content: space-between;
+  align-items: center; flex-wrap: wrap;
+}
+.toolbar-tip {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12.5px; color: var(--blue-dark);
+  background: rgba(255,255,255,.85); border: 1px solid var(--gray-200);
+  border-radius: 8px; padding: 7px 14px;
+}
+.toolbar-tip svg { width: 15px; height: 15px; color: var(--blue); flex-shrink: 0; }
+.toolbar-right { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 18px; border: none; border-radius: 8px;
+  font-family: 'Sarabun', sans-serif; font-size: 13.5px; font-weight: 600;
+  cursor: pointer; transition: all .2s;
+}
+.btn svg { width: 15px; height: 15px; }
+.btn-success { background: var(--green); color: #fff; }
+.btn-success:hover { background: #1e8035; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(40,167,69,.3); }
+.btn-danger { background: #fff; color: var(--red); border: 1.5px solid var(--red); }
+.btn-danger:hover { background: #fff5f5; }
+
+#form-page {
+  max-width: 960px; margin: 0 auto;
+  background: var(--white); border-radius: 12px;
+  box-shadow: 0 4px 30px rgba(0,0,0,.12);
+  padding: 32px 38px;
+}
+
+[contenteditable="true"] {
+  outline: none; border-radius: 3px;
+  transition: background .15s, box-shadow .15s;
+  cursor: text; min-width: 8px;
+}
+[contenteditable="true"]:hover { background: rgba(26,58,140,0.06); box-shadow: 0 0 0 2px rgba(26,58,140,0.06); }
+[contenteditable="true"]:focus { background: rgba(26,58,140,0.1); box-shadow: 0 0 0 2px var(--blue-mid); }
+
+.header {
+  display: flex; align-items: flex-start; gap: 20px;
+  margin-bottom: 12px; border-bottom: 3px solid var(--blue);
+  padding-bottom: 14px;
+}
+.header-text { flex: 1; text-align: center; }
+.h-title { font-size: 19px; font-weight: 700; color: var(--blue-dark); line-height: 1.35; }
+.h-dept { font-size: 13.5px; font-weight: 500; color: var(--blue); margin-top: 4px; }
+.h-hosp { font-size: 12.5px; font-weight: 700; color: var(--blue-dark); margin-top: 4px; letter-spacing: 1px; }
+
+.proc-row {
+  display: flex; justify-content: flex-end; align-items: flex-start;
+  gap: 16px; margin-bottom: 16px;
+}
+.status-box {
+  border: 2px solid var(--blue-dark); border-radius: 6px;
+  padding: 8px 16px; min-width: 210px;
+}
+.status-title {
+  text-align: center; font-weight: 700; font-size: 13px;
+  text-decoration: underline; margin-bottom: 6px; color: var(--blue-dark); letter-spacing: 1px;
+}
+.status-opt { display: flex; align-items: center; gap: 7px; margin: 4px 0; font-size: 13px; }
+.status-opt input[type="radio"] { width: 15px; height: 15px; accent-color: var(--blue); cursor: pointer; flex-shrink: 0; }
+
+.sec-title {
+  font-size: 14.5px; font-weight: 700; text-decoration: underline;
+  color: var(--blue-dark); margin: 14px 0 8px; display: block;
+}
+
+.fg { display: grid; gap: 6px 14px; }
+.fg-2 { grid-template-columns: 1fr 1fr; }
+.frow { display: flex; align-items: center; gap: 5px; font-size: 13px; }
+.flabel { white-space: nowrap; color: var(--gray-700); font-weight: 500; }
+.finput {
+  flex: 1; border: none; border-bottom: 1.5px solid var(--gray-300);
+  outline: none; font-family: 'Sarabun', sans-serif; font-size: 13px;
+  background: transparent; padding: 2px 4px; color: var(--gray-900); transition: border-color .2s;
+}
+.finput:focus { border-bottom-color: var(--blue-mid); }
+.finput-sm { width: 65px; flex: none; }
+
+.ipm-types { display: flex; flex-wrap: wrap; gap: 5px 14px; font-size: 13px; margin: 6px 0; }
+.ipm-types label { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+.ipm-types input[type="checkbox"] { width: 14px; height: 14px; accent-color: var(--blue); }
+.env-row { display: flex; gap: 20px; align-items: center; font-size: 13px; margin: 6px 0; flex-wrap: wrap; }
+.env-grp { display: flex; align-items: center; gap: 5px; }
+
+table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 12.5px; }
+th {
+  background: var(--blue); color: var(--white);
+  padding: 7px 8px; text-align: center; font-weight: 600;
+}
+th[contenteditable="true"]:hover { background: var(--blue-mid); box-shadow: none; }
+th[contenteditable="true"]:focus { background: var(--blue-mid); box-shadow: inset 0 0 0 2px rgba(255,255,255,.5); }
+td { border: 1px solid var(--gray-200); padding: 5px 8px; vertical-align: middle; }
+tr:nth-child(even) td { background: var(--gray-50); }
+
+.tinput {
+  width: 100%; border: none; outline: none;
+  font-family: 'Sarabun', sans-serif; font-size: 12px;
+  background: transparent; padding: 1px 2px; color: var(--gray-900);
+}
+.tinput:focus { background: var(--blue-light); border-radius: 3px; }
+
 .tinput-area {
   display: block; width: 100%; resize: none; overflow: hidden;
   min-height: 24px; height: auto; line-height: 1.45; white-space: pre-wrap;
